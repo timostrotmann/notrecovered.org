@@ -1,3 +1,117 @@
 ---
-return Astro.redirect('/en', 302);
+import SiteLayout from '../layouts/SiteLayout.en.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { BadgeCheck, Facebook, FlaskConical, HeartPulse, Instagram, Megaphone, X, Globe } from 'lucide-astro';
 ---
+
+<SiteLayout title={SITE_TITLE} description={SITE_DESCRIPTION} alternateHref="/de">
+	<main>
+		<section class="flex flex-col items-center justify-center gap-6 px-4 pb-8 pt-12 text-center">
+			<div class="flex w-full max-w-[900px] flex-col items-center text-center">
+				<div class="mt-8 space-y-8">
+					<p class="mb-4 text-4xl font-semibold tracking-[-0.01em]">
+						The silence ends with us.
+					</p>
+					<p class="mb-8 mx-auto max-w-[600px] text-[clamp(0.95rem,2.2vw,1.05rem)] text-[rgb(var(--gray))]">
+						We are an international, non-partisan movement committed to ending the suffering of millions affected by post-acute infection syndromes.
+					</p>
+					<div class="flex justify-center gap-4">
+						<a
+							class="inline-flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-[rgb(var(--black))] transition duration-200 ease-in-out hover:border-[rgba(var(--gray),0.4)] hover:bg-[rgba(var(--gray),0.1)] active:scale-[0.98]"
+							href="https://www.facebook.com/profile.php?id=100087041580329"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<span class="sr-only">Facebook</span>
+							<Facebook class="h-[30px] w-[30px]" aria-hidden="true" />
+						</a>
+						<a
+							class="inline-flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-[rgb(var(--black))] transition duration-200 ease-in-out hover:border-[rgba(var(--gray),0.4)] hover:bg-[rgba(var(--gray),0.1)] active:scale-[0.98]"
+							href="https://www.instagram.com/notrecovered_official/"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<span class="sr-only">Instagram</span>
+							<Instagram class="h-[30px] w-[30px]" aria-hidden="true" />
+						</a>
+						<a
+							class="inline-flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-[rgb(var(--black))] transition duration-200 ease-in-out hover:border-[rgba(var(--gray),0.4)] hover:bg-[rgba(var(--gray),0.1)] active:scale-[0.98]"
+							href="https://x.com/Not_Recovered"
+							target="_blank"
+							rel="noreferrer"
+						>
+							<span class="sr-only">X</span>
+							<X class="h-[30px] w-[30px]" aria-hidden="true" />
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="my-8 w-[100vw] py-5 text-center">
+				<div class="mx-auto h-px w-full max-w-[680px] bg-[rgb(var(--black))] "></div>
+				<p class="my-3 text-4xl font-semibold">LET&apos;S TAKE ACTION!</p>
+				<div class="mx-auto h-px w-full max-w-[680px] bg-[rgb(var(--black))] "></div>
+			</div>
+			<div class="mt-4 max-w-[900px] text-center text-[rgb(var(--gray-dark))]">
+				<p class="mb-4 text-2xl font-semibold">WHERE WE FIGHT FOR</p>
+				<div class="mt-3 grid gap-4 text-center text-[clamp(0.95rem,2.1vw,1.05rem)] text-[rgb(var(--gray))] md:grid-cols-3">
+					<div class="flex flex-col items-center">
+						<FlaskConical class="mb-2 h-10 w-10 text-[rgb(var(--black))]" aria-hidden="true" />
+						<p class="m-0 font-semibold text-[rgb(var(--black))]">RESEARCH</p>
+						<p class="m-0">
+							A global investment in biomedical research to improve the treatment, diagnostic and understanding of post-viral diseases in a timely manner.
+						</p>
+					</div>
+					<div class="flex flex-col items-center">
+						<HeartPulse class="mb-2 h-10 w-10 text-[rgb(var(--black))]" aria-hidden="true" />
+						<p class="m-0 font-semibold text-[rgb(var(--black))]">CARE</p>
+						<p class="m-0">
+							The establishment of medical care structures to improve the care and support for people suffering.
+						</p>
+					</div>
+					<div class="flex flex-col items-center">
+						<BadgeCheck class="mb-2 h-10 w-10 text-[rgb(var(--black))]" aria-hidden="true" />
+						<p class="m-0 font-semibold text-[rgb(var(--black))]">RECOGNITION</p>
+						<p class="m-0">
+							The recognition as a serious condition and disability by society, government and institutions.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="my-4 mt-8 h-px w-full max-w-[680px] bg-[rgba(var(--gray),0.25)]"></div>
+			<div class="mt-6 mb-6 max-w-[900px] text-center text-[rgb(var(--gray-dark))]">
+				<p class="mb-4 text-2xl font-semibold">WHAT WE DO</p>
+				<div class="mt-3 grid gap-4 text-center text-[clamp(0.95rem,2.1vw,1.05rem)] text-[rgb(var(--gray))] md:grid-cols-2">
+					<div class="flex flex-col items-center">
+						<Globe class="mb-2 h-10 w-10 text-[rgb(var(--black))]" aria-hidden="true" />
+						<p class="m-0 font-semibold text-[rgb(var(--black))]">ON THE WEB</p>
+						<p class="m-0">
+							Through various actions, we are campaigning online for more visibility and research for Long Covid and associated diseases.
+						</p>
+					</div>
+					<div class="flex flex-col items-center">
+						<Megaphone class="mb-2 h-10 w-10 text-[rgb(var(--black))]" aria-hidden="true" />
+						<p class="m-0 font-semibold text-[rgb(var(--black))]">ON THE STREET</p>
+						<p class="m-0">
+							We organise creative protests on the streets to draw attention to the desperate situation of millions of sufferers and to demand more research, care and recognition.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="mt-10 w-full max-w-[900px] text-center">
+				<div class="mx-auto mb-4 h-px w-full max-w-[680px] bg-[rgba(var(--gray),0.25)]"></div>
+				<p class="mt-8 text-[clamp(1rem,2.3vw,1.15rem)] font-semibold text-[rgb(var(--black))]">STAY UPDATED</p>
+				<p class="mt-2 text-[clamp(0.95rem,2.1vw,1.05rem)] text-[rgb(var(--gray))]">
+					Follow the Not Recovered WhatsApp Channel to never miss updates.
+				</p>
+				<a
+					class="mt-4 inline-flex items-center justify-center rounded-full border-2 border-[var(--border)] px-6 py-3 text-sm font-semibold transition duration-200 ease-in-out hover:bg-[rgba(var(--black),0.2)]"
+					href="https://whatsapp.com/channel/0029VbBqgJ77NoZrcZ5kQB0F"
+					target="_blank"
+					rel="noreferrer"
+				>
+					FOLLOW ON WHATSAPP
+				</a>
+			</div>
+		</section>
+	</main>
+</SiteLayout>
