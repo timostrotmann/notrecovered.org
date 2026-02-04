@@ -1,0 +1,76 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.de.astro';
+import { SITE_TITLE } from '../../consts';
+import { Facebook, Instagram, X } from 'lucide-astro';
+
+const description = 'Kontakt zu Not Recovered.';
+---
+
+<SiteLayout title={`Kontakt | ${SITE_TITLE}`} description={description} alternateHref="/en/contact">
+	<main class="mx-auto w-full max-w-[720px] px-6 pb-10 pt-12 text-[rgb(var(--gray-dark))]">
+		<p class="mb-6 text-[rgb(var(--gray))]">
+			Nutze dieses Formular, um das Not Recovered Team mit Fragen, Ideen oder Unterstützungsanfragen zu erreichen.
+		</p>
+		<p class="mb-6 text-[rgb(var(--gray))]">
+			Du kannst uns auch direkt unter <a class="underline" href="mailto:info@notrecovered.org">info@notrecovered.org</a> erreichen.
+		</p>
+		<form class="space-y-4" action="https://formspree.io/f/xpqdrlwp" method="POST">
+			<label class="block">
+				<span class="mb-1 block text-sm font-semibold text-[rgb(var(--black))]">Deine E‑Mail:</span>
+				<input
+					class="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-[rgb(var(--black))]"
+					type="email"
+					name="email"
+					required
+				/>
+			</label>
+			<label class="block">
+				<span class="mb-1 block text-sm font-semibold text-[rgb(var(--black))]">Deine Nachricht:</span>
+				<textarea
+					class="w-full rounded-lg border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-[rgb(var(--black))]"
+					name="message"
+					rows={6}
+					required
+				></textarea>
+			</label>
+			<button
+				class="inline-flex items-center justify-center rounded-full border px-6 py-3 text-sm font-semibold transition duration-200 ease-in-out hover:bg-[rgba(var(--black),0.8)]"
+				type="submit"
+			>
+				Senden
+			</button>
+		</form>
+		<div class="mt-10">
+			<p class="mb-4 text-sm font-semibold text-[rgb(var(--black))]">Folge uns</p>
+			<div class="flex gap-4">
+				<a
+					class="inline-flex h-[54px] w-[54px] items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-[rgb(var(--black))] transition duration-200 ease-in-out hover:border-[rgba(var(--gray),0.4)] hover:bg-[rgba(var(--gray),0.1)] active:scale-[0.98]"
+					href="https://www.facebook.com/profile.php?id=100087041580329"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<span class="sr-only">Facebook</span>
+					<Facebook class="h-[26px] w-[26px]" aria-hidden="true" />
+				</a>
+				<a
+					class="inline-flex h-[54px] w-[54px] items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-[rgb(var(--black))] transition duration-200 ease-in-out hover:border-[rgba(var(--gray),0.4)] hover:bg-[rgba(var(--gray),0.1)] active:scale-[0.98]"
+					href="https://www.instagram.com/notrecovered_official/"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<span class="sr-only">Instagram</span>
+					<Instagram class="h-[26px] w-[26px]" aria-hidden="true" />
+				</a>
+				<a
+					class="inline-flex h-[54px] w-[54px] items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-[rgb(var(--black))] transition duration-200 ease-in-out hover:border-[rgba(var(--gray),0.4)] hover:bg-[rgba(var(--gray),0.1)] active:scale-[0.98]"
+					href="https://x.com/Not_Recovered"
+					target="_blank"
+					rel="noreferrer"
+				>
+					<span class="sr-only">X</span>
+					<X class="h-[26px] w-[26px]" aria-hidden="true" />
+				</a>
+			</div>
+		</div>
+	</main>
+</SiteLayout>

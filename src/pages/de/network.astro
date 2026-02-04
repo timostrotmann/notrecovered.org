@@ -1,0 +1,99 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.de.astro';
+import { SITE_TITLE } from '../../consts';
+import { ExternalLink, MapPin } from 'lucide-astro';
+
+const description = 'Unser internationales Not Recovered Netzwerk.';
+---
+
+<SiteLayout title={`Netzwerk | ${SITE_TITLE}`} description={description} alternateHref="/en/network">
+	<main class="mx-auto w-full max-w-[900px] px-6 pb-12 pt-12 text-[rgb(var(--gray-dark))]">
+		<h1 class="mb-6 text-3xl">Netzwerk</h1>
+		<p class="mb-8 text-[rgb(var(--gray))]">
+			Not Recovered ist eine wachsende internationale Bewegung. Unten findest du unsere regionalen Gruppen, die lokal
+			arbeiten und eine gemeinsame Mission teilen.
+		</p>
+		<p class="mb-8 text-[rgb(var(--gray))]">
+			Wir unterstützen gern weitere Ländergruppen beim Aufbau und bei der Organisation von Protestaktionen. Anfragen
+			können an <a class="underline" href="mailto:info@notrecovered.org">info@notrecovered.org</a> gesendet werden.
+		</p>
+
+		<div class="grid gap-6 md:grid-cols-2">
+			<a
+				class="group relative block rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 text-inherit no-underline transition duration-200 ease-in-out hover:-translate-y-1"
+				href="https://nichtgenesen.org/"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<ExternalLink class="absolute right-4 top-4 h-4 w-4 text-[rgb(var(--gray))]" aria-hidden="true" />
+				<div class="flex items-center gap-4">
+					<img class="h-[72px] w-[72px] rounded-full object-cover" src="/NichtGenesenIcon-300x300.jpg" alt="Nicht Genesen Logo" />
+					<div>
+						<h2 class="mb-1 text-xl font-semibold text-[rgb(var(--black))]">Nicht Genesen</h2>
+						<p class="m-0 inline-flex items-center gap-1 text-[rgb(var(--gray))]">
+							<MapPin class="h-4 w-4" aria-hidden="true" />
+							Deutschland
+						</p>
+					</div>
+				</div>
+			</a>
+
+			<a
+				class="group relative block rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 text-inherit no-underline transition duration-200 ease-in-out hover:-translate-y-1"
+				href="https://www.hetpaisprotest.nl/"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<ExternalLink class="absolute right-4 top-4 h-4 w-4 text-[rgb(var(--gray))]" aria-hidden="true" />
+				<div class="flex items-center gap-4">
+					<img class="h-[72px] w-[72px] rounded-full object-cover" src="/NietHersteld-300x300.jpg" alt="Niet Hersteld Logo" />
+					<div>
+						<h2 class="mb-1 text-xl font-semibold text-[rgb(var(--black))]">Niet Hersteld</h2>
+						<p class="m-0 inline-flex items-center gap-1 text-[rgb(var(--gray))]">
+							<MapPin class="h-4 w-4" aria-hidden="true" />
+							Niederlande
+						</p>
+					</div>
+				</div>
+			</a>
+
+			<a
+				class="group relative block rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 text-inherit no-underline transition duration-200 ease-in-out hover:-translate-y-1"
+				href="https://www.notrecoveredbelgium.be/"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<ExternalLink class="absolute right-4 top-4 h-4 w-4 text-[rgb(var(--gray))]" aria-hidden="true" />
+				<div class="flex items-center gap-4">
+					<img class="h-[72px] w-[72px] rounded-full object-cover" src="/NotRecovered_BE.png" alt="Not Recovered Belgium Logo" />
+					<div>
+						<h2 class="mb-1 text-xl font-semibold text-[rgb(var(--black))]">Not Recovered Belgium</h2>
+						<p class="m-0 inline-flex items-center gap-1 text-[rgb(var(--gray))]">
+							<MapPin class="h-4 w-4" aria-hidden="true" />
+							Belgien
+						</p>
+					</div>
+				</div>
+			</a>
+
+			<a
+				class="group relative block rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-6 text-inherit no-underline transition duration-200 ease-in-out hover:-translate-y-1"
+				href="https://www.notrecovereduk.org/"
+				target="_blank"
+				rel="noreferrer"
+			>
+				<ExternalLink class="absolute right-4 top-4 h-4 w-4 text-[rgb(var(--gray))]" aria-hidden="true" />
+				<div class="flex items-center gap-4">
+					<img class="h-[72px] w-[72px] rounded-full object-cover" src="/NotRecoveredIcon-300x300.jpg" alt="Not Recovered UK Logo" />
+					<div>
+						<h2 class="mb-1 text-xl font-semibold text-[rgb(var(--black))]">Not Recovered UK</h2>
+						<p class="m-0 inline-flex items-center gap-1 text-[rgb(var(--gray))]">
+							<MapPin class="h-4 w-4" aria-hidden="true" />
+							Vereinigtes Königreich
+						</p>
+					</div>
+				</div>
+			</a>
+		</div>
+	</main>
+</SiteLayout>

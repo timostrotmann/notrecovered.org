@@ -1,0 +1,45 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.de.astro';
+import { SITE_TITLE } from '../../consts';
+
+const description = 'Impressum';
+---
+
+<SiteLayout title={`Impressum | ${SITE_TITLE}`} description={description} alternateHref="/en/legal-notice">
+	<main class="mx-auto w-full max-w-[720px] px-6 pb-10 pt-12 text-[rgb(var(--gray-dark))]">
+		<h1 class="mb-8 text-3xl">Impressum</h1>
+		<section>
+			<div class="mb-8">
+				<h2 class="text-lg mb-2">Angaben gemäß § 5 DDG</h2>
+				<p class="m-0 leading-6">
+					Timo Strotmann<br />
+					Horbach 27A<br />
+					96193 Wachenroth<br />
+					Deutschland
+				</p>
+			</div>
+			<div class="mb-8">
+				<h2 class="text-lg mb-2">Kontakt</h2>
+				<p class="m-0 leading-6">
+					E-Mail:
+					<a class="ml-1 text-[rgb(var(--accent))] no-underline hover:underline" href="mailto:contact@strotmann.me">
+						info@notrecovered.org
+					</a>
+				</p>
+			</div>
+			<div class="mb-8">
+				<h2 class="text-lg mb-2">Umsatzsteuer-ID</h2>
+				<p class="m-0 leading-6">Keine Umsatzsteuer-Identifikationsnummer vorhanden.</p>
+			</div>
+			<div class="mb-8">
+				<h2 class="text-lg mb-2">Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+				<p class="m-0 leading-6">
+					Timo Strotmann<br />
+					Horbach 27A<br />
+					96193 Wachenroth<br />
+					Deutschland
+				</p>
+			</div>
+		</section>
+	</main>
+</SiteLayout>

@@ -1,0 +1,33 @@
+---
+import { getLocaleFromPath, withLocale } from '../utils/i18n';
+
+interface Props {
+	locale?: 'en' | 'de';
+}
+
+const today = new Date();
+const locale = (Astro.props as Props).locale ?? getLocaleFromPath(Astro.url.pathname);
+const labels =
+	locale === 'de'
+		? { legal: 'Impressum', privacy: 'Datenschutz', rights: 'Alle Rechte vorbehalten.' }
+		: { legal: 'Legal Notice', privacy: 'Privacy Policy', rights: 'All rights reserved.' };
+const legalHref = withLocale('/legal-notice', locale);
+const privacyHref = withLocale('/privacy-policy', locale);
+---
+
+<footer>
+	<div class="social-links">
+		<a href={legalHref}>{labels.legal}</a>
+		<span aria-hidden="true">·</span>
+		<a href={privacyHref}>{labels.privacy}</a>
+	</div>
+</footer>
+<style>
+	footer {
+		padding: 1rem;
+		background: var(--bg);
+		color: rgb(var(--gray));
+		text-align: center;
+		font-size: 0.85rem;
+	}
+</style>

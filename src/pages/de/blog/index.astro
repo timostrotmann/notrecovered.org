@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import SiteLayout from '../../../layouts/SiteLayout.de.astro';
+import { SITE_TITLE } from '../../../consts';
+import readingTime from 'reading-time';
+
+const description = 'Artikel und Essays auf Deutsch.';
+const posts = (await getCollection('blogDe')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<SiteLayout title={`News | ${SITE_TITLE}`} description={description} alternateHref="/en/blog">
+	<main class="mx-auto flex w-full max-w-[960px] justify-center px-4 py-10">
+		<section class="w-full">
+			{posts.length === 0 ? (
+				<p class="text-center text-[rgb(var(--gray))]">Noch keine Beiträge auf Deutsch.</p>
+			) : (
+				<ul class="grid list-none justify-items-center gap-8 p-0 m-0 sm:grid-cols-2">
+					{
+						posts.map((post) => (
+							<li class="w-full max-w-[420px]">
+								<a class="group block text-inherit no-underline transition duration-200" href={`/de/blog/${post.id}/`}>
+									{post.data.heroImage && (
+										<div class="mb-2 h-[180px] overflow-hidden rounded-xl">
+											<Image
+												class="h-full w-full object-cover object-center transition duration-200"
+												width={720}
+												height={180}
+												src={post.data.heroImage}
+												alt=""
+											/>
+										</div>
+									)}
+									<h4 class="m-0 text-lg leading-tight text-[rgb(var(--black))] transition duration-200">
+										{post.data.title}
+									</h4>
+									<p class="m-0 text-xs text-[rgb(var(--gray))] transition duration-200">
+										<span class="inline-flex flex-wrap items-center gap-2">
+											<FormattedDate date={post.data.pubDate} locale="de" />
+											<span aria-hidden="true">•</span>
+											<span>{readingTime(post.body ?? '').text}</span>
+										</span>
+									</p>
+									<p class="mt-2 line-clamp-3 text-sm">{post.data.description}</p>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			)}
+		</section>
+	</main>
+</SiteLayout>

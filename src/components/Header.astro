@@ -1,0 +1,367 @@
+---
+import HeaderLink from './HeaderLink.astro';
+import { Sun, Moon } from 'lucide-astro';
+import { getAlternateLocale, getLocaleFromPath, withLocale } from '../utils/i18n';
+
+interface Props {
+	locale?: 'en' | 'de';
+	alternateHref?: string;
+}
+
+const locale = (Astro.props as Props).locale ?? getLocaleFromPath(Astro.url.pathname);
+const alternateLocale = getAlternateLocale(locale);
+const switchHref = (Astro.props as Props).alternateHref ?? withLocale(Astro.url.pathname, alternateLocale);
+const labels =
+	locale === 'de'
+		? {
+				 home: 'Start',
+				 blog: 'News',
+				 contact: 'Kontakt',
+				 network: 'Netzwerk',
+				 pais: 'PAIS',
+				 switchAria: 'Sprache wechseln',
+			 }
+		: {
+				 home: 'Home',
+				 blog: 'News',
+				 contact: 'Contact',
+				 network: 'Network',
+				 pais: 'PAIS',
+				 switchAria: 'Switch language',
+			 };
+const basePath = `/${locale}`;
+---
+
+<header>
+	<nav>
+		<a class="logo-link" href={basePath} aria-label="Not Recovered">
+			<img class="logo-image logo-light" src="/NotRecoveredLogo_black.png" alt="Not Recovered" />
+			<img class="logo-image logo-dark" src="/NotRecoveredLogo_weiß.png" alt="Not Recovered" />
+		</a>
+		<div class="internal-links">
+			<HeaderLink href={basePath}>{labels.home}</HeaderLink>
+			<HeaderLink href={`${basePath}/blog`}>{labels.blog}</HeaderLink>
+			<HeaderLink href={`${basePath}/contact`}>{labels.contact}</HeaderLink>
+			<HeaderLink href={`${basePath}/network`}>{labels.network}</HeaderLink>
+			<HeaderLink href={`${basePath}/pais`}>{labels.pais}</HeaderLink>
+		</div>
+		<div class="header-actions">
+			<button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">
+				<span class="menu-toggle__bar" aria-hidden="true"></span>
+				<span class="menu-toggle__bar" aria-hidden="true"></span>
+				<span class="menu-toggle__bar" aria-hidden="true"></span>
+				<span class="sr-only">Toggle menu</span>
+			</button>
+			<a
+				class="language-switch"
+				href={switchHref}
+				lang={alternateLocale}
+				hreflang={alternateLocale}
+				aria-label={labels.switchAria}
+			>
+				{alternateLocale.toUpperCase()}
+			</a>
+			<button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+				<Sun class="theme-toggle__icon icon-sun" aria-hidden="true" />
+				<Moon class="theme-toggle__icon icon-moon" aria-hidden="true" />
+				<span class="sr-only">Toggle dark mode</span>
+			</button>
+		</div>
+		<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+			<HeaderLink href={basePath}>{labels.home}</HeaderLink>
+			<HeaderLink href={`${basePath}/blog`}>{labels.blog}</HeaderLink>
+			<HeaderLink href={`${basePath}/contact`}>{labels.contact}</HeaderLink>
+			<HeaderLink href={`${basePath}/network`}>{labels.network}</HeaderLink>
+			<HeaderLink href={`${basePath}/pais`}>{labels.pais}</HeaderLink>
+		</div>
+	</nav>
+</header>
+<script is:inline>
+	(() => {
+		const storageKey = 'theme';
+		const toggle = document.getElementById('theme-toggle');
+		const menuToggle = document.getElementById('menu-toggle');
+		const mobileMenu = document.getElementById('mobile-menu');
+		const nav = menuToggle?.closest('nav');
+		const header = document.querySelector('header');
+		const syncHeaderHeight = () => {
+			if (header) {
+				document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+			}
+		};
+		const setMenuState = (isOpen) => {
+			if (!menuToggle || !mobileMenu || !nav) return;
+			menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+			mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+			nav.classList.toggle('menu-open', isOpen);
+			syncHeaderHeight();
+		};
+		const getTheme = () => {
+			const stored = localStorage.getItem(storageKey);
+			if (stored === 'dark' || stored === 'light') return stored;
+			return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+		};
+		const setTheme = (theme) => {
+			document.documentElement.dataset.theme = theme;
+			document.documentElement.style.colorScheme = theme;
+			localStorage.setItem(storageKey, theme);
+			if (toggle) {
+				toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+			}
+		};
+		const syncToggle = () => {
+			const theme = document.documentElement.dataset.theme || getTheme();
+			if (toggle) {
+				toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+			}
+		};
+		syncToggle();
+		syncHeaderHeight();
+		toggle?.addEventListener('click', () => {
+			const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+			setTheme(next);
+		});
+		menuToggle?.addEventListener('click', () => {
+			const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+			setMenuState(!isOpen);
+		});
+		mobileMenu?.addEventListener('click', (event) => {
+			const target = event.target;
+			if (target && target.closest('a')) {
+				setMenuState(false);
+			}
+		});
+		window.addEventListener('resize', () => {
+			syncHeaderHeight();
+			if (window.innerWidth > 768) {
+				setMenuState(false);
+			}
+		});
+		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+			if (!localStorage.getItem(storageKey)) {
+				setTheme(event.matches ? 'dark' : 'light');
+			}
+		});
+	})();
+</script>
+<style>
+	header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 100;
+		margin-bottom: 5px;
+		padding: 0 1em;
+		background: var(--bg);
+		border-bottom: 1px solid var(--border);
+		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+	}
+	h2 {
+		margin: 0;
+		font-size: 1em;
+	}
+
+	h2 a,
+	h2 a.active {
+		text-decoration: none;
+	}
+	nav {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	.internal-links {
+		display: flex;
+		gap: 0.5rem;
+	}
+	.internal-links a,
+	.mobile-menu a {
+		padding: 1em 0.5em;
+		color: var(--black);
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+		transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+	}
+	.internal-links a:hover,
+	.internal-links a:focus-visible,
+	.mobile-menu a:hover,
+	.mobile-menu a:focus-visible {
+		border-bottom-color: var(--accent);
+	}
+	.internal-links a.active,
+	.mobile-menu a.active {
+		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}
+	.header-actions {
+		position: absolute;
+		right: 0;
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+	.menu-toggle {
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		width: 36px;
+		height: 36px;
+		border-radius: 999px;
+		border: 1px solid var(--border);
+		background: transparent;
+		color: rgb(var(--black));
+		cursor: pointer;
+		gap: 4px;
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+	}
+	.menu-toggle:hover {
+		background: rgba(var(--gray), 10%);
+		border-color: rgba(var(--gray), 40%);
+	}
+	.menu-toggle:active {
+		transform: scale(0.97);
+	}
+	.menu-toggle__bar {
+		display: block;
+		width: 16px;
+		height: 2px;
+		background: currentColor;
+		border-radius: 999px;
+	}
+	.mobile-menu {
+		display: none;
+		position: absolute;
+		top: calc(100% + 0.5rem);
+		left: 0;
+		right: 0;
+		flex-direction: column;
+		gap: 0;
+		padding: 0.5rem 1rem 1rem;
+		background: var(--surface);
+		border: 1px solid var(--border);
+		border-radius: 12px;
+		box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+		z-index: 10;
+	}
+	.mobile-menu a {
+		padding: 0.75rem 0.5rem;
+		border-bottom: 1px solid rgba(var(--gray), 20%);
+	}
+	.mobile-menu a:last-child {
+		border-bottom: none;
+	}
+	nav.menu-open .mobile-menu {
+		display: flex;
+	}
+	.logo-link {
+		position: absolute;
+		left: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0.75rem 0.5rem;
+		margin-top: 14px;
+	}
+	.logo-link:hover,
+	.logo-link:focus-visible {
+		border-bottom-color: transparent;
+		background: transparent;
+	}
+	.logo-image {
+		height: 92px;
+		width: auto;
+		display: block;
+	}
+	.logo-dark {
+		display: none;
+	}
+	html[data-theme='dark'] .logo-light {
+		display: none;
+	}
+	html[data-theme='dark'] .logo-dark {
+		display: block;
+	}
+	.language-switch {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 36px;
+		height: 36px;
+		padding: 0 10px;
+		border-radius: 999px;
+		border: 1px solid var(--border);
+		background: transparent;
+		color: rgb(var(--black));
+		font-size: 0.85rem;
+		font-weight: 600;
+		letter-spacing: 0.03em;
+		text-decoration: none;
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+	}
+	.language-switch:hover {
+		background: rgba(var(--gray), 10%);
+		border-color: rgba(var(--gray), 40%);
+	}
+	.language-switch:active {
+		transform: scale(0.97);
+	}
+	.theme-toggle {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		border-radius: 999px;
+		border: 1px solid var(--border);
+		background: transparent;
+		color: rgb(var(--black));
+		cursor: pointer;
+		transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+	}
+	.theme-toggle:hover {
+		background: rgba(var(--gray), 10%);
+		border-color: rgba(var(--gray), 40%);
+	}
+	.theme-toggle:active {
+		transform: scale(0.97);
+	}
+	.theme-toggle__icon {
+		width: 18px;
+		height: 18px;
+	}
+	.icon-sun {
+		display: none;
+	}
+	html[data-theme='dark'] .icon-sun {
+		display: block;
+	}
+	html[data-theme='dark'] .icon-moon {
+		display: none;
+	}
+	@media (max-width: 768px) {
+		nav {
+			justify-content: space-between;
+		}
+		.logo-link {
+			position: static;
+			margin-top: 0;
+			margin-top: 0;
+			padding: 0.5rem 0.25rem;
+		}
+		.logo-image {
+			height: 56px;
+		}
+		.header-actions {
+			position: static;
+		}
+		.internal-links {
+			display: none;
+		}
+		.menu-toggle {
+			display: inline-flex;
+		}
+	}
+</style>

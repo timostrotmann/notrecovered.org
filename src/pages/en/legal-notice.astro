@@ -1,0 +1,47 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.en.astro';
+import { SITE_TITLE } from '../../consts';
+
+const description = 'Legal Notice';
+---
+
+<SiteLayout title={`Legal Notice | ${SITE_TITLE}`} description={description} alternateHref="/de/legal-notice">
+	<main class="mx-auto w-full max-w-[720px] px-6 pb-10 pt-12 text-[rgb(var(--gray-dark))]">
+		<h1 class="mb-8 text-3xl">Legal Notice</h1>
+		<section>
+			<div class="mb-8">
+				<h2 class="text-lg mb-2">Information in accordance with Section 5 of the German Digital Services Act (DDG)</h2>
+				<p class="m-0 leading-6">
+					Timo Strotmann<br />
+					Horbach 27A<br />
+					96193 Wachenroth<br />
+					Germany
+				</p>
+			</div>
+			<div class="mb-8">
+				<h2 class="text-lg mb-2">Contact</h2>
+				<p class="m-0 leading-6">
+					Email:
+					<a class="ml-1 text-[rgb(var(--accent))] no-underline hover:underline" href="mailto:info@notrecovered.org">
+						info@notrecovered.org
+					</a>
+				</p>
+			</div>
+			<div class="mb-8">
+				<h2 class="text-lg mb-2">VAT ID</h2>
+				<p class="m-0 leading-6">No VAT identification number available.</p>
+			</div>
+			<div class="mb-8">
+				<h2 class="text-lg mb-2">
+					Responsible for content according to Section 18 (2) of the German Interstate Media Treaty (MStV)
+				</h2>
+				<p class="m-0 leading-6">
+					Timo Strotmann<br />
+					Horbach 27A<br />
+					96193 Wachenroth<br />
+					Germany
+				</p>
+			</div>
+		</section>
+	</main>
+</SiteLayout>

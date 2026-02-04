@@ -1,0 +1,71 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+
+type BlogData = CollectionEntry<'blogEn'>['data'] | CollectionEntry<'blogDe'>['data'];
+
+type Props = BlogData & {
+	readingTime?: string;
+	locale?: 'en' | 'de';
+	updatedLabel?: string;
+	alternateHref?: string;
+};
+
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	readingTime,
+	locale = 'en',
+	updatedLabel = 'Last updated on',
+	alternateHref,
+} = Astro.props as Props;
+---
+
+<html lang={locale}>
+	<head>
+		<BaseHead title={title} description={description} image={heroImage} locale={locale} />
+	</head>
+	<body>
+		<Header locale={locale} alternateHref={alternateHref} />
+		<main class="mx-auto w-full px-4 py-6">
+			<article>
+				<div class="flex w-full justify-center">
+					{heroImage && (
+						<div class="w-full max-w-[1020px] max-h-[255px] overflow-hidden rounded-xl shadow-[var(--box-shadow)]">
+							<Image class="h-full w-full object-cover object-center" width={1020} height={255} src={heroImage} alt="" />
+						</div>
+					)}
+				</div>
+				<div class="mx-auto max-w-[720px] p-4 text-[rgb(var(--gray-dark))]">
+					<div class="mb-4 py-4 leading-none">
+						<h1 class="mb-2 text-3xl">{title}</h1>
+						<div class="text-sm text-gray-500">
+							<div class="flex flex-wrap items-center gap-2">
+								<FormattedDate date={pubDate} locale={locale} />
+								{readingTime && <span aria-hidden="true">•</span>}
+								{readingTime && <span>{readingTime}</span>}
+							</div>
+							{
+								updatedDate && (
+									<div class="italic">
+										{updatedLabel} <FormattedDate date={updatedDate} locale={locale} />
+									</div>
+								)
+							}
+						</div>
+					</div>
+					<slot />
+				</div>
+			</article>
+		</main>
+		<Footer locale={locale} />
+	</body>
+</html>

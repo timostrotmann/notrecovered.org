@@ -1,0 +1,139 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.en.astro';
+import { SITE_TITLE } from '../../consts';
+
+const description = 'Privacy Policy';
+---
+
+<SiteLayout title={`Privacy Policy | ${SITE_TITLE}`} description={description} alternateHref="/de/privacy-policy">
+	<main class="mx-auto w-full max-w-[720px] px-6 pb-10 pt-12 text-[rgb(var(--gray-dark))]">
+		<h1 class="mb-6 text-3xl">Privacy Policy</h1>
+		<section class="space-y-6">
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">1. General Information</h2>
+				<p class="m-0">
+					The protection of your personal data is important to me. This website is operated as a personal blog. I
+					process personal data only to the extent necessary to provide a functional website and its content.
+				</p>
+				<p class="m-0">This privacy policy explains what data is collected when you visit this website and how it is used.</p>
+				<p class="m-0">
+					Controller responsible for data processing:
+					<br />
+					Timo Strotmann<br />
+					Horbach 27A<br />
+					96193 Wachenroth<br />
+					Germany<br />
+					Email:
+					<a class="ml-1 text-[rgb(var(--accent))] no-underline hover:underline" href="mailto:info@notrecovered.org">
+						info@notrecovered.org
+					</a>
+				</p>
+			</div>
+
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">2. Data Collection When Visiting the Website</h2>
+				<p class="m-0">
+					When you visit this website, certain data is automatically collected by the hosting provider and stored in so
+					called server log files. This data may include:
+				</p>
+				<ul class="list-disc pl-5">
+					<li>IP address</li>
+					<li>Date and time of the request</li>
+					<li>Requested page or file</li>
+					<li>Browser type and version</li>
+					<li>Operating system</li>
+					<li>Referrer URL</li>
+				</ul>
+				<p class="m-0">
+					This data is technically necessary to ensure the stability, security, and proper delivery of the website. It
+					is not used to identify you personally.
+				</p>
+				<p class="m-0">The legal basis for this processing is Article 6(1)(f) GDPR (legitimate interest).</p>
+			</div>
+
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">3. Hosting</h2>
+				<p class="m-0">
+					This website is hosted by an external hosting provider. Personal data collected on this website is stored on
+					the servers of the hosting provider.
+				</p>
+				<p class="m-0">
+					The hosting provider processes the data only to the extent necessary to fulfill its service obligations and in
+					accordance with applicable data protection laws.
+				</p>
+			</div>
+
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">4. Cookies</h2>
+				<p class="m-0">This website does not use cookies for tracking, analytics, or advertising purposes.</p>
+				<p class="m-0">
+					If technically required cookies are used by the hosting provider, this is done on the basis of Article 6(1)(f)
+					GDPR.
+				</p>
+			</div>
+
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">5. Umami Analytics</h2>
+				<p class="m-0">This website uses Umami for anonymous website analytics.</p>
+				<p class="m-0">
+					Umami does not use cookies and does not collect personally identifiable information. The data is used to
+					understand traffic and improve the website.
+				</p>
+				<p class="m-0">The legal basis for this processing is Article 6(1)(f) GDPR (legitimate interest).</p>
+			</div>
+
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">6. Embedded Content and External Resources</h2>
+				<p class="m-0">
+					This website may use external resources such as fonts, icons, or other assets that are required for proper
+					presentation. When such resources are loaded, your IP address may be transmitted to the respective provider.
+				</p>
+				<p class="m-0">
+					These resources are used in the interest of a consistent and user friendly presentation of the website
+					(Article 6(1)(f) GDPR).
+				</p>
+			</div>
+
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">7. Contact via Email</h2>
+				<p class="m-0">
+					If you contact me via email, your message and the personal data you provide will be stored solely for the
+					purpose of processing your request.
+				</p>
+				<p class="m-0">The legal basis for this processing is Article 6(1)(b) GDPR (processing necessary to respond to inquiries).</p>
+			</div>
+
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">8. Your Rights</h2>
+				<p class="m-0">You have the right to:</p>
+				<ul class="list-disc pl-5">
+					<li>Request information about your stored personal data</li>
+					<li>Request correction or deletion of your data</li>
+					<li>Request restriction of processing</li>
+					<li>Object to the processing of your data</li>
+					<li>Request data portability</li>
+				</ul>
+				<p class="m-0">
+					If you believe that your data is being processed unlawfully, you have the right to lodge a complaint with a
+					supervisory authority.
+				</p>
+			</div>
+
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">9. Data Security</h2>
+				<p class="m-0">
+					I take appropriate technical and organizational measures to protect your personal data against loss, misuse,
+					or unauthorized access.
+				</p>
+			</div>
+
+			<div class="space-y-2">
+				<h2 class="text-lg font-semibold">10. Changes to This Privacy Policy</h2>
+				<p class="m-0">
+					I reserve the right to update this privacy policy if necessary to comply with legal requirements or to
+					reflect changes to this website.
+				</p>
+			</div>
+		</section>
+	</main>
+</SiteLayout>

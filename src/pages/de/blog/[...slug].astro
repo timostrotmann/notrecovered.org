@@ -1,0 +1,52 @@
+---
+import { getCollection, getEntry, render } from 'astro:content';
+import BlogPost from '../../../layouts/BlogPost.astro';
+import SiteLayout from '../../../layouts/SiteLayout.de.astro';
+import readingTime from 'reading-time';
+
+export async function getStaticPaths() {
+	const dePosts = await getCollection('blogDe');
+	const enPosts = await getCollection('blogEn');
+	const slugs = new Set([...dePosts.map((post) => post.id), ...enPosts.map((post) => post.id)]);
+	return Array.from(slugs).map((slug) => ({
+		params: { slug },
+	}));
+}
+
+const slugParam = Astro.params.slug;
+const slug = Array.isArray(slugParam) ? slugParam.join('/') : (slugParam as string);
+const deEntry = await getEntry('blogDe', slug);
+const enEntry = await getEntry('blogEn', slug);
+let Content;
+let stats: ReturnType<typeof readingTime> | undefined;
+
+if (deEntry) {
+	const rendered = await render(deEntry);
+	Content = rendered.Content;
+	stats = readingTime(deEntry.body ?? '');
+}
+
+const fallbackHref = `/en/blog/${slug}/`;
+const fallbackTitle = enEntry?.data.title ?? 'Nicht verfügbar';
+const description = 'Dieser Beitrag ist derzeit nur auf Englisch verfügbar.';
+---
+
+{deEntry && Content ? (
+	<BlogPost {...deEntry.data} readingTime={stats?.text} locale="de" alternateHref={fallbackHref}>
+		<div class="prose max-w-none text-[rgb(var(--gray-dark))] prose-headings:text-[rgb(var(--black))] prose-a:text-[rgb(var(--accent))] prose-a:no-underline hover:prose-a:underline prose-strong:text-[rgb(var(--black))] prose-code:text-[rgb(var(--black))] prose-hr:border-[rgba(var(--gray),0.4)]">
+			<Content />
+		</div>
+	</BlogPost>
+) : (
+	<SiteLayout title="Beitrag nicht verfügbar" description={description} alternateHref={fallbackHref}>
+		<main class="mx-auto w-full max-w-[720px] px-6 pb-10 pt-12 text-[rgb(var(--gray-dark))]">
+			<h1 class="mb-4 text-3xl">Beitrag noch nicht auf Deutsch verfügbar</h1>
+			<p class="mb-4">
+				Der Beitrag <strong>{fallbackTitle}</strong> ist derzeit nur auf Englisch verfügbar.
+			</p>
+			<a class="text-[rgb(var(--accent))] no-underline hover:underline" href={fallbackHref}>
+				Zur englischen Version
+			</a>
+		</main>
+	</SiteLayout>
+)}

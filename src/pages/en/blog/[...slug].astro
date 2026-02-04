@@ -1,0 +1,29 @@
+---
+import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
+import BlogPost from '../../../layouts/BlogPost.astro';
+import readingTime from 'reading-time';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blogEn');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+	}));
+}
+
+type Props = CollectionEntry<'blogEn'>;
+
+const slugParam = Astro.params.slug;
+const slug = Array.isArray(slugParam) ? slugParam.join('/') : (slugParam as string);
+const post = (await getEntry('blogEn', slug)) as Props | null;
+if (!post) {
+	throw new Error(`Blog post not found: ${slug}`);
+}
+const { Content } = await render(post);
+const stats = readingTime(post.body ?? '');
+---
+
+<BlogPost {...post.data} readingTime={stats.text} alternateHref={`/de/blog/${slug}/`}>
+	<div class="prose max-w-none text-[rgb(var(--gray-dark))] prose-headings:text-[rgb(var(--black))] prose-a:text-[rgb(var(--accent))] prose-a:no-underline hover:prose-a:underline prose-strong:text-[rgb(var(--black))] prose-code:text-[rgb(var(--black))] prose-hr:border-[rgba(var(--gray),0.4)]">
+		<Content />
+	</div>
+</BlogPost>
